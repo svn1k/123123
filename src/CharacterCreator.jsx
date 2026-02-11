@@ -139,6 +139,13 @@ const CharacterCreator = () => {
         const clonedInputs = clone.querySelectorAll('input, textarea');
         const previewRect = previewRef.current.getBoundingClientRect();
 
+        const textOverlay = document.createElement('div');
+        textOverlay.style.position = 'absolute';
+        textOverlay.style.inset = '0';
+        textOverlay.style.pointerEvents = 'none';
+        textOverlay.style.zIndex = '999';
+        clone.appendChild(textOverlay);
+
         clonedInputs.forEach((clonedInput, index) => {
             const originalInput = originalInputs[index];
             const div = document.createElement('div');
@@ -195,7 +202,8 @@ const CharacterCreator = () => {
 
             div.style.padding = `${paddingTop * scaleFactor}px ${paddingRight * scaleFactor}px ${paddingBottom * scaleFactor}px ${paddingLeft * scaleFactor}px`;
 
-            clonedInput.parentNode.replaceChild(div, clonedInput);
+            textOverlay.appendChild(div);
+            clonedInput.style.visibility = 'hidden';
         });
 
         try {
