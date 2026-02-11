@@ -222,8 +222,8 @@
 .creator-extra-text-input {
     position: absolute;
     bottom: 1.25rem;
-    right: 1.25rem;
-    z-index: 20;
+    right: clamp(0.75rem, 1.4vw, 1.25rem);
+    z-index: 30;
     background: rgba(255, 255, 255, 0.8);
     border: none;
     border-bottom: 3px solid #ff69b4;
@@ -232,7 +232,8 @@
     font-size: 1.25rem;
     outline: none;
     text-align: left;
-    min-width: 9rem;
+    width: clamp(8rem, 22%, 12rem);
+    min-width: 0;
     border-radius: 8px 8px 0 0;
     font-family: 'Indie Flower', cursive;
     pointer-events: auto;
@@ -249,12 +250,12 @@
 /* Текстовое поле посередине экрана */
 .creator-center-textarea {
     position: absolute;
-    top: 41%; /* ← ВЫСОТА */
-    left: 65%; /* ← ГОРИЗОНТАЛЬ */
-    transform: translate(-50%, -50%);
+    top: 41%;
+    right: clamp(2rem, 7%, 5rem);
+    transform: translateY(-50%);
     z-index: 25 !important;
-    width: 20%; /* ← ШИРИНА */
-    min-height: 250px; /* ← ВЫСОТА ПОЛЯ */
+    width: clamp(140px, 20%, 280px);
+    min-height: clamp(180px, 40%, 250px);
     max-width: 450px;
     padding: 16px;
     background: rgba(255, 255, 255, 0.85);
