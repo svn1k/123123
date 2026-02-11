@@ -241,28 +241,6 @@ const CharacterCreator = () => {
         }
     };
 
-    const handleSaveClick = async () => {
-        if (!previewRef.current) return;
-
-        try {
-            const canvas = await capturePreview();
-            if (!canvas) {
-                alert('Error creating image');
-                return;
-            }
-
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL('image/png');
-            link.download = `valentine-card-${Date.now()}.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (error) {
-            console.error('Error saving image:', error);
-            alert('An error occurred while saving. Please try again.');
-        }
-    };
-
     const shareToTwitter = async () => {
         if (!previewRef.current) return;
 
@@ -363,7 +341,6 @@ const CharacterCreator = () => {
                 <div className="creator-controls-panel">
                     <div className="creator-main-actions">
                         <button className="creator-random-btn" onClick={randomize}>🎲 Random</button>
-                        <button className="creator-save-btn" onClick={handleSaveClick}>💾 Save</button>
                         <button className="creator-share-btn" onClick={shareToTwitter}>🐦 Share</button>
                     </div>
 

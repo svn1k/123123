@@ -176,8 +176,7 @@
     z-index: 30;
 }
 
-.creator-random-btn,
-.creator-save-btn {
+.creator-random-btn {
     flex: 1;
     padding: 14px;
     border: none;
@@ -197,14 +196,6 @@
     box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4);
 }
 
-.creator-save-btn {
-    background: linear-gradient(135deg, #10b981, #059669);
-}
-
-.creator-save-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
-}
 
 .creator-section {
     background-color: #1e1b36;
@@ -293,8 +284,7 @@
         gap: 8px;
     }
 
-    .creator-random-btn,
-    .creator-save-btn {
+    .creator-random-btn {
         width: 100%;
     }
 
