@@ -151,36 +151,38 @@ const CharacterCreator = () => {
                 return `${num * scaleFactor}px`;
             };
 
-            div.style.left = scaleValue(computedStyle.left);
-            div.style.top = scaleValue(computedStyle.top);
-            div.style.right = scaleValue(computedStyle.right);
-            div.style.bottom = scaleValue(computedStyle.bottom);
-            div.style.width = scaleValue(computedStyle.width);
-            div.style.height = scaleValue(computedStyle.height);
-
             // Копируем текст
             div.innerText = originalInput.value;
 
             // Копируем критические стили позиционирования
             div.style.position = computedStyle.position;
-            div.style.left = computedStyle.left;
-            div.style.top = computedStyle.top;
-            div.style.bottom = computedStyle.bottom;
-            div.style.right = computedStyle.right;
+            div.style.left = scaleValue(computedStyle.left);
+            div.style.top = scaleValue(computedStyle.top);
+            div.style.bottom = scaleValue(computedStyle.bottom);
+            div.style.right = scaleValue(computedStyle.right);
             div.style.transform = computedStyle.transform;
-            div.style.width = computedStyle.width;
+            div.style.width = scaleValue(computedStyle.width);
+            div.style.minWidth = scaleValue(computedStyle.minWidth);
+            div.style.maxWidth = scaleValue(computedStyle.maxWidth);
+            div.style.height = scaleValue(computedStyle.height);
+            div.style.minHeight = scaleValue(computedStyle.minHeight);
+            div.style.maxHeight = scaleValue(computedStyle.maxHeight);
             div.style.textAlign = computedStyle.textAlign;
             div.style.color = computedStyle.color;
             div.style.fontFamily = computedStyle.fontFamily;
             div.style.fontWeight = computedStyle.fontWeight;
+            div.style.lineHeight = scaleValue(computedStyle.lineHeight);
+            div.style.zIndex = computedStyle.zIndex;
             div.style.background = computedStyle.background;
             div.style.border = computedStyle.border;
             div.style.borderBottom = computedStyle.borderBottom;
             div.style.borderRadius = computedStyle.borderRadius;
+            div.style.boxSizing = computedStyle.boxSizing;
             
             // Flexbox для вертикального центрирования текста в инпутах
             div.style.display = 'flex';
             div.style.alignItems = 'center';
+            div.style.justifyContent = 'flex-start';
             if (originalInput.tagName === 'TEXTAREA') {
                 div.style.whiteSpace = 'pre-wrap'; // Сохраняем переносы строк
                 div.style.alignItems = 'flex-start'; // Текст сверху
@@ -281,7 +283,7 @@ const CharacterCreator = () => {
                     const twitterText = encodeURIComponent('💕 Happy Valentine\'s Day! 💕\n\nMade with Valentine Card Creator');
                     window.open(`https://twitter.com/intent/tweet?text=${twitterText}`, '_blank');
                 }, 1000);
-            } catch (err) {
+            } catch (_err) {
                 // Fallback if clipboard didn't work
                 saveCharacter();
                 alert('📥 Image downloaded! Attach it to Twitter manually.');
