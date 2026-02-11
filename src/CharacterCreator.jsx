@@ -241,8 +241,26 @@ const CharacterCreator = () => {
         }
     };
 
-    const handleSaveClick = () => {
-        alert('Saving is currently unavailable.');
+    const handleSaveClick = async () => {
+        if (!previewRef.current) return;
+
+        try {
+            const canvas = await capturePreview();
+            if (!canvas) {
+                alert('Error creating image');
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL('image/png');
+            link.download = `valentine-card-${Date.now()}.png`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (error) {
+            console.error('Error saving image:', error);
+            alert('An error occurred while saving. Please try again.');
+        }
     };
 
     const shareToTwitter = async () => {
