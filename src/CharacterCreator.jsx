@@ -272,6 +272,27 @@ const CharacterCreator = () => {
         }
     };
 
+    const downloadCard = async () => {
+        if (!previewRef.current) return;
+
+        try {
+            const canvas = await capturePreview();
+            if (!canvas) {
+                alert('Error creating image');
+                return;
+            }
+
+            const imageUrl = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = imageUrl;
+            link.download = 'valentine-card.png';
+            link.click();
+        } catch (error) {
+            console.error('Error downloading image:', error);
+            alert('An error occurred while saving. Please try again.');
+        }
+    };
+
     const sections = [
         { title: 'Background', data: ASSETS.backgrounds, current: selectedBg, setter: setSelectedBg },
         { title: 'Base', data: ASSETS.base, current: selectedBase, setter: setSelectedBase },
@@ -341,6 +362,7 @@ const CharacterCreator = () => {
                 <div className="creator-controls-panel">
                     <div className="creator-main-actions">
                         <button className="creator-random-btn" onClick={randomize}>🎲 Random</button>
+                        <button className="creator-save-btn" onClick={downloadCard}>💾 Save</button>
                         <button className="creator-share-btn" onClick={shareToTwitter}>🐦 Share</button>
                     </div>
 
