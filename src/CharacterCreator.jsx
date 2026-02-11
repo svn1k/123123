@@ -134,11 +134,16 @@ const CharacterCreator = () => {
         
         tempContainer.appendChild(clone);
 
-        // 5. МАГИЯ: Заменяем ВСЕ input и textarea на div с пересчетом размеров
-        // Находим оригинальные поля (чтобы взять текст и стили)
+        // 5. МАГИЯ: Заменяем ВСЕ input и textarea на div с точной геометрией
+        const previewRect = previewRef.current.getBoundingClientRect();
         const originalInputs = previewRef.current.querySelectorAll('input, textarea');
-        // Находим их клоны
         const clonedInputs = clone.querySelectorAll('input, textarea');
+
+        const scalePx = (value) => {
+            const num = parseFloat(value);
+            if (isNaN(num)) return value;
+            return `${num * scaleFactor}px`;
+        };
 
         clonedInputs.forEach((clonedInput, index) => {
             const originalInput = originalInputs[index];
@@ -173,6 +178,8 @@ const CharacterCreator = () => {
             div.style.color = computedStyle.color;
             div.style.fontFamily = computedStyle.fontFamily;
             div.style.fontWeight = computedStyle.fontWeight;
+            div.style.lineHeight = scalePx(computedStyle.lineHeight);
+            div.style.zIndex = computedStyle.zIndex;
             div.style.background = computedStyle.background;
             div.style.border = computedStyle.border;
             div.style.borderBottom = computedStyle.borderBottom;
@@ -184,16 +191,16 @@ const CharacterCreator = () => {
             // Flexbox для вертикального центрирования текста в инпутах
             div.style.display = 'flex';
             div.style.alignItems = 'center';
+            div.style.justifyContent = 'flex-start';
             if (originalInput.tagName === 'TEXTAREA') {
-                div.style.whiteSpace = 'pre-wrap'; // Сохраняем переносы строк
-                div.style.alignItems = 'flex-start'; // Текст сверху
-                div.style.justifyContent = 'center'; // Текст по центру по горизонтали
+                div.style.whiteSpace = 'pre-wrap';
+                div.style.alignItems = 'flex-start';
+                div.style.justifyContent = 'center';
+                div.style.overflow = 'hidden';
             } else {
-                div.style.whiteSpace = 'nowrap'; // Текст в одну строку для инпутов
+                div.style.whiteSpace = 'nowrap';
             }
 
-            // === МАСШТАБИРОВАНИЕ ===
-            // Увеличиваем шрифт и отступы пропорционально размеру картинки
             const fontSize = parseFloat(computedStyle.fontSize);
             div.style.fontSize = `${fontSize * scaleFactor}px`;
 
@@ -201,10 +208,8 @@ const CharacterCreator = () => {
             const paddingRight = parseFloat(computedStyle.paddingRight);
             const paddingTop = parseFloat(computedStyle.paddingTop);
             const paddingBottom = parseFloat(computedStyle.paddingBottom);
-            
             div.style.padding = `${paddingTop * scaleFactor}px ${paddingRight * scaleFactor}px ${paddingBottom * scaleFactor}px ${paddingLeft * scaleFactor}px`;
 
-            // Заменяем input на div
             clonedInput.parentNode.replaceChild(div, clonedInput);
         });
 
