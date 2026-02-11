@@ -151,24 +151,24 @@ const CharacterCreator = () => {
                 return `${num * scaleFactor}px`;
             };
 
-            div.style.left = scaleValue(computedStyle.left);
-            div.style.top = scaleValue(computedStyle.top);
-            div.style.right = scaleValue(computedStyle.right);
-            div.style.bottom = scaleValue(computedStyle.bottom);
-            div.style.width = scaleValue(computedStyle.width);
-            div.style.height = scaleValue(computedStyle.height);
+            
 
             // Копируем текст
             div.innerText = originalInput.value;
 
             // Копируем критические стили позиционирования
             div.style.position = computedStyle.position;
-            div.style.left = computedStyle.left;
-            div.style.top = computedStyle.top;
-            div.style.bottom = computedStyle.bottom;
-            div.style.right = computedStyle.right;
+            div.style.left = scaleValue(computedStyle.left);
+            div.style.top = scaleValue(computedStyle.top);
+            div.style.bottom = scaleValue(computedStyle.bottom);
+            div.style.right = scaleValue(computedStyle.right);
             div.style.transform = computedStyle.transform;
-            div.style.width = computedStyle.width;
+            div.style.width = scaleValue(computedStyle.width);
+            div.style.minWidth = scaleValue(computedStyle.minWidth);
+            div.style.maxWidth = scaleValue(computedStyle.maxWidth);
+            div.style.height = scaleValue(computedStyle.height);
+            div.style.minHeight = scaleValue(computedStyle.minHeight);
+            div.style.maxHeight = scaleValue(computedStyle.maxHeight);
             div.style.textAlign = computedStyle.textAlign;
             div.style.color = computedStyle.color;
             div.style.fontFamily = computedStyle.fontFamily;
@@ -177,7 +177,10 @@ const CharacterCreator = () => {
             div.style.border = computedStyle.border;
             div.style.borderBottom = computedStyle.borderBottom;
             div.style.borderRadius = computedStyle.borderRadius;
-            
+            div.style.lineHeight = scaleValue(computedStyle.lineHeight);
+            div.style.zIndex = computedStyle.zIndex;
+            div.style.boxSizing = computedStyle.boxSizing;
+            div.style.justifyContent = 'flex-start';
             // Flexbox для вертикального центрирования текста в инпутах
             div.style.display = 'flex';
             div.style.alignItems = 'center';
