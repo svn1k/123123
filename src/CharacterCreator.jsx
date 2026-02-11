@@ -149,22 +149,31 @@ const CharacterCreator = () => {
             const originalInput = originalInputs[index];
             const div = document.createElement('div');
             const computedStyle = window.getComputedStyle(originalInput);
-            const fieldRect = originalInput.getBoundingClientRect();
+            // ===== SCALE POSITIONS =====
+            const scaleValue = (value) => {
+                const num = parseFloat(value);
+                if (isNaN(num)) return value;
+                return `${num * scaleFactor}px`;
+            };
+
+            
 
             // Копируем текст
             div.innerText = originalInput.value;
 
-            // Абсолютные координаты от превью, чтобы исключить сдвиги родителей
-            const left = (fieldRect.left - previewRect.left) * scaleFactor;
-            const top = (fieldRect.top - previewRect.top) * scaleFactor;
-            const width = fieldRect.width * scaleFactor;
-            const height = fieldRect.height * scaleFactor;
-
-            div.style.position = 'absolute';
-            div.style.left = `${left}px`;
-            div.style.top = `${top}px`;
-            div.style.width = `${width}px`;
-            div.style.height = `${height}px`;
+            // Копируем критические стили позиционирования
+            div.style.position = computedStyle.position;
+            div.style.left = scaleValue(computedStyle.left);
+            div.style.top = scaleValue(computedStyle.top);
+            div.style.bottom = scaleValue(computedStyle.bottom);
+            div.style.right = scaleValue(computedStyle.right);
+            div.style.transform = computedStyle.transform;
+            div.style.width = scaleValue(computedStyle.width);
+            div.style.minWidth = scaleValue(computedStyle.minWidth);
+            div.style.maxWidth = scaleValue(computedStyle.maxWidth);
+            div.style.height = scaleValue(computedStyle.height);
+            div.style.minHeight = scaleValue(computedStyle.minHeight);
+            div.style.maxHeight = scaleValue(computedStyle.maxHeight);
             div.style.textAlign = computedStyle.textAlign;
             div.style.color = computedStyle.color;
             div.style.fontFamily = computedStyle.fontFamily;
@@ -175,9 +184,11 @@ const CharacterCreator = () => {
             div.style.border = computedStyle.border;
             div.style.borderBottom = computedStyle.borderBottom;
             div.style.borderRadius = computedStyle.borderRadius;
+            div.style.lineHeight = scaleValue(computedStyle.lineHeight);
+            div.style.zIndex = computedStyle.zIndex;
             div.style.boxSizing = computedStyle.boxSizing;
-
-            // Поведение текста
+            div.style.justifyContent = 'flex-start';
+            // Flexbox для вертикального центрирования текста в инпутах
             div.style.display = 'flex';
             div.style.alignItems = 'center';
             div.style.justifyContent = 'flex-start';
