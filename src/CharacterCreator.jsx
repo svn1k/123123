@@ -139,6 +139,13 @@ const CharacterCreator = () => {
         const clonedInputs = clone.querySelectorAll('input, textarea');
         const previewRect = previewRef.current.getBoundingClientRect();
 
+        const textOverlay = document.createElement('div');
+        textOverlay.style.position = 'absolute';
+        textOverlay.style.inset = '0';
+        textOverlay.style.pointerEvents = 'none';
+        textOverlay.style.zIndex = '999';
+        clone.appendChild(textOverlay);
+
         clonedInputs.forEach((clonedInput, index) => {
             const originalInput = originalInputs[index];
             const div = document.createElement('div');
@@ -146,7 +153,8 @@ const CharacterCreator = () => {
             const inputRect = originalInput.getBoundingClientRect();
 
             // Копируем текст и базовые стили
-            div.innerText = originalInput.value;
+            // Если поле пустое, оставляем placeholder, чтобы подписи вроде "To:" не пропадали на сохранённой картинке
+            div.innerText = originalInput.value || originalInput.placeholder || '';
             div.style.position = 'absolute';
             div.style.left = `${(inputRect.left - previewRect.left) * scaleFactor}px`;
             div.style.top = `${(inputRect.top - previewRect.top) * scaleFactor}px`;
@@ -158,11 +166,14 @@ const CharacterCreator = () => {
             div.style.fontFamily = computedStyle.fontFamily;
             div.style.fontWeight = computedStyle.fontWeight;
             div.style.fontStyle = computedStyle.fontStyle;
+            div.style.letterSpacing = computedStyle.letterSpacing;
             div.style.background = computedStyle.background;
             div.style.border = computedStyle.border;
             div.style.borderBottom = computedStyle.borderBottom;
             div.style.borderRadius = computedStyle.borderRadius;
             div.style.lineHeight = computedStyle.lineHeight;
+            div.style.textTransform = computedStyle.textTransform;
+            div.style.webkitTextFillColor = computedStyle.webkitTextFillColor;
             div.style.zIndex = computedStyle.zIndex;
             div.style.boxSizing = computedStyle.boxSizing;
             div.style.overflow = 'hidden';
@@ -191,7 +202,8 @@ const CharacterCreator = () => {
 
             div.style.padding = `${paddingTop * scaleFactor}px ${paddingRight * scaleFactor}px ${paddingBottom * scaleFactor}px ${paddingLeft * scaleFactor}px`;
 
-            clonedInput.parentNode.replaceChild(div, clonedInput);
+            textOverlay.appendChild(div);
+            clonedInput.style.visibility = 'hidden';
         });
 
         try {
