@@ -1,0 +1,320 @@
+/* ===== CHARACTER CREATOR STYLES ===== */
+
+.character-creator-wrapper {
+    min-height: 100vh;
+    background-color: #120f26;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* ГЛАВНЫЙ КОНТЕЙНЕР */
+.creator-container {
+    display: flex;
+    background-color: #120f26;
+    border: 1px solid #333;
+    border-radius: 24px;
+    padding: 24px;
+    gap: 24px;
+    width: 100%;
+    max-width: 1200px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+/* --- ПРЕВЬЮ (16:9) --- */
+.creator-preview-area {
+    position: relative;
+    width: 70%;
+    aspect-ratio: 16 / 9;
+    background-color: #1a1a1a;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 2px solid #2a2a2a;
+}
+
+.creator-character-layer {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* 1. ФОН */
+.creator-bg-layer {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 2. ПЕРСОНАЖ */
+.creator-base-layer,
+.creator-body-layer,
+.creator-clothes-layer,
+.creator-hair-layer,
+.creator-hat-layer {
+    height: 90%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+/* Настройки основы */
+.creator-base-layer {
+    z-index: 3;
+    width: 120% !important;
+    height: 120% !important;
+    top: 48%;
+}
+
+/* Настройки лица */
+.creator-face-layer {
+    z-index: 5;
+    height: 22.5% !important;
+    width: auto;
+    left: 49.5%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+.creator-body-layer {
+    z-index: 4;
+}
+
+.creator-clothes-layer {
+    z-index: 6;
+}
+
+.creator-hair-layer {
+    z-index: 7;
+}
+
+.creator-hat-layer {
+    z-index: 8;
+}
+
+/* 3. СЕРДЦА */
+.creator-hearts-layer {
+    z-index: 10;
+    top: 10%;
+    left: 20%;
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+}
+
+/* --- ТЕКСТОВЫЕ ПОЛЯ --- */
+.creator-ui-overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 20;
+}
+
+.creator-name-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #a4f2c8;
+    color: black;
+    padding: 6px 12px;
+    font-size: 20px;
+    outline: none;
+    border-radius: 0;
+    font-weight: bold;
+}
+
+.creator-extra-text-input {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #a4f2c8;
+    color: black;
+    padding: 6px 12px;
+    font-size: 20px;
+    outline: none;
+    text-align: left;
+    min-width: 150px;
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* --- ПРАВАЯ ЧАСТЬ: УПРАВЛЕНИЕ --- */
+.creator-controls-panel {
+    width: 30%;
+    height: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-right: 8px;
+}
+
+.creator-controls-panel::-webkit-scrollbar {
+    width: 6px;
+}
+
+.creator-controls-panel::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+.creator-main-actions {
+    display: flex;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    background: #120f26;
+    padding-bottom: 10px;
+    z-index: 30;
+}
+
+.creator-random-btn,
+.creator-save-btn {
+    flex: 1;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.creator-random-btn {
+    background: linear-gradient(135deg, #a855f7, #7e22ce);
+}
+
+.creator-random-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(168, 85, 247, 0.4);
+}
+
+.creator-save-btn {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.creator-save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+}
+
+.creator-section {
+    background-color: #1e1b36;
+    padding: 16px;
+    border-radius: 16px;
+}
+
+.creator-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.creator-options-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.creator-option-btn {
+    aspect-ratio: 1/1;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-color: #2a2645;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+}
+
+.creator-option-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.creator-option-btn:hover {
+    border-color: #a855f7;
+    transform: scale(1.05);
+}
+
+.creator-option-btn.active {
+    border-color: #a855f7;
+    background-color: #35305a;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1200px) {
+    .creator-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .creator-preview-area {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .creator-controls-panel {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .character-creator-wrapper {
+        padding: 10px;
+    }
+
+    .creator-container {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .creator-options-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .creator-main-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .creator-random-btn,
+    .creator-save-btn {
+        width: 100%;
+    }
+
+    .creator-name-input,
+    .creator-extra-text-input {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .creator-options-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .creator-section {
+        padding: 12px;
+    }
+
+    .creator-controls-panel {
+        max-height: 400px;
+    }
+}

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <title>magic-chess</title>
+</head>
+  <body>
+    <div id="dpr-scale-root">
+      <div id="root"></div>
+    </div>
+    <script>
+      (function() {
+        function applyDprScale() {
+          var dpr = Math.min(window.devicePixelRatio || 1, 3);
+          if (dpr > 1) {
+            document.documentElement.style.setProperty('--dpr-scale', 1 / dpr);
+            document.documentElement.style.setProperty('--dpr-mult', dpr);
+          } else {
+            document.documentElement.style.setProperty('--dpr-scale', '1');
+            document.documentElement.style.setProperty('--dpr-mult', '1');
+          }
+        }
+        applyDprScale();
+        window.addEventListener('resize', applyDprScale);
+      })();
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

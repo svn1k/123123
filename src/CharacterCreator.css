@@ -1,0 +1,665 @@
+/* ===== CHARACTER CREATOR STYLES - ROMANTIC EDITION ===== */
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atziluth:wght@500&display=swap');
+
+.character-creator-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 25%, #ff9a9e 50%, #fecfef 75%, #ffecd2 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.25rem;
+    gap: 20px;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+    /* Декоративные элементы на фоне */
+    .character-creator-wrapper::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 1px, transparent 1px);
+        background-size: 50px 50px;
+        animation: floatPattern 20s linear infinite;
+        pointer-events: none;
+    }
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes floatPattern {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(50px, 50px);
+    }
+}
+
+/* ГЛАВНЫЙ КОНТЕЙНЕР */
+.creator-container {
+    display: flex;
+    z-index: 2;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 236, 210, 0.9) 50%, rgba(254, 207, 239, 0.95) 100%);
+    border: 3px solid rgba(255, 255, 255, 0.8);
+    border-radius: 2rem;
+    padding: 2rem;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: min(1400px, calc(100vw - 2.5rem));
+    min-width: 0;
+    box-shadow: 0 25px 70px rgba(255, 105, 180, 0.35), 0 10px 30px rgba(255, 154, 158, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+/* --- ПРЕВЬЮ (16:9) --- */
+.creator-preview-area {
+    position: relative;
+    width: 70%;
+    min-width: 0;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #fff5f7 0%, #ffe8ec 100%);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    border: 3px solid rgba(255, 182, 193, 0.4);
+    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+    flex-shrink: 1;
+}
+
+.creator-character-layer {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* 1. ФОН */
+.creator-bg-layer {
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 2. ПЕРСОНАЖ */
+.creator-base-layer,
+.creator-body-layer,
+.creator-clothes-layer,
+.creator-hair-layer,
+.creator-hat-layer {
+    height: 90%;
+    width: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+/* Настройки основы */
+.creator-base-layer {
+    z-index: 3;
+    height: 120% !important;
+    width: auto !important;
+    top: 48%;
+    left: 50%;
+}
+
+/* Настройки лица */
+.creator-face-layer {
+    z-index: 5;
+    height: 20% !important;
+    width: auto;
+    left: 39.5%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+}
+
+.creator-body-layer {
+    z-index: 4;
+    left: 40%
+}
+
+.creator-clothes-layer {
+    z-index: 6;
+    left: 40%
+}
+
+.creator-hair-layer {
+    z-index: 7;
+    left: 40%
+}
+
+.creator-hat-layer {
+    z-index: 8;
+    left: 40%
+}
+
+/* 3. СЕРДЦА — фиксированный контейнер, чтобы не сдвигалось при смене картинки */
+/* 3. СЕРДЦА — исправленная версия */
+.creator-hearts-wrapper {
+    position: absolute;
+    z-index: 10;
+    /* === ГЛАВНОЕ ИСПРАВЛЕНИЕ === */
+    /* Ставим 40%, так как у слоев body, clothes и hair стоит left: 40% */
+    left: 40%;
+    /* Центрируем по вертикали относительно экрана, как и персонажа */
+    top: 50%;
+    /* Привязка размера к ВЫСОТЕ (чтобы не прыгало по вертикали) */
+    height: 55%;
+    width: auto;
+    aspect-ratio: 1;
+    /* === НАСТРОЙКА ПОЛОЖЕНИЯ === */
+    /* translate(-50%, ...) центрирует элемент относительно точки left: 40% */
+    /* Второе число (-90%) поднимает сердца над головой. */
+    /* Если нужно выше/ниже — меняйте -90% на -100% или -80% */
+    transform: translate(-28%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.creator-hearts-layer {
+    width: 140%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* --- ТЕКСТОВЫЕ ПОЛЯ --- */
+.creator-ui-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    z-index: 20;
+}
+
+.creator-name-input {
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-bottom: 3px solid #ff69b4;
+    color: #c71585;
+    padding: 0.5rem 0.9rem;
+    font-size: 1.25rem;
+    outline: none;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Indie Flower', cursive;
+    pointer-events: auto;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.15);
+    transition: all 0.3s ease;
+}
+
+    .creator-name-input:focus {
+        border-bottom-color: #ff1493;
+        box-shadow: 0 6px 15px rgba(255, 20, 147, 0.3);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+.creator-extra-text-input {
+    position: absolute;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-bottom: 3px solid #ff69b4;
+    color: #c71585;
+    padding: 0.5rem 0.9rem;
+    font-size: 1.25rem;
+    outline: none;
+    text-align: left;
+    min-width: 9rem;
+    border-radius: 8px 8px 0 0;
+    font-family: 'Indie Flower', cursive;
+    pointer-events: auto;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.15);
+    transition: all 0.3s ease;
+}
+
+    .creator-extra-text-input:focus {
+        border-bottom-color: #ff1493;
+        box-shadow: 0 6px 15px rgba(255, 20, 147, 0.3);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+/* Текстовое поле посередине экрана */
+.creator-center-textarea {
+    position: absolute;
+    top: 41%; /* ← ВЫСОТА */
+    left: 65%; /* ← ГОРИЗОНТАЛЬ */
+    transform: translate(-50%, -50%);
+    z-index: 25 !important;
+    width: 20%; /* ← ШИРИНА */
+    min-height: 250px; /* ← ВЫСОТА ПОЛЯ */
+    max-width: 450px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.85);
+    border: 2px solid #ffb6c1;
+    border-radius: 16px;
+    color: #c71585;
+    font-size: 18px;
+    font-family: 'Indie Flower', cursive;
+    resize: none;
+    outline: none;
+    text-align: center;
+    pointer-events: auto !important;
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.2);
+    transition: all 0.3s ease;
+}
+
+    .creator-center-textarea::placeholder {
+        color: #ff69b4;
+        font-style: italic;
+        opacity: 0.6;
+    }
+
+    .creator-center-textarea:focus {
+        border-color: #ff1493;
+        box-shadow: 0 8px 25px rgba(255, 20, 147, 0.35);
+        background: rgba(255, 255, 255, 0.95);
+    }
+
+/* --- ПРАВАЯ ЧАСТЬ: УПРАВЛЕНИЕ --- */
+.creator-controls-panel {
+    width: 30%;
+    min-width: min(200px, 22vw);
+    max-width: 280px;
+    max-height: 37.5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-right: 8px;
+    flex-shrink: 0;
+}
+
+    .creator-controls-panel::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .creator-controls-panel::-webkit-scrollbar-track {
+        background: rgba(255, 182, 193, 0.2);
+        border-radius: 10px;
+    }
+
+    .creator-controls-panel::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #ff69b4, #ff1493);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .creator-controls-panel::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff1493, #c71585);
+        }
+
+.creator-main-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 236, 210, 0.9));
+    padding-bottom: 12px;
+    z-index: 30;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.15);
+}
+
+.creator-random-btn,
+.creator-save-btn {
+    flex: 1;
+    min-width: calc(50% - 0.3rem);
+    padding: 1rem;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.creator-share-btn {
+    flex-basis: 100%;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.creator-random-btn {
+    background: linear-gradient(135deg, #ff9a9e, #fecfef);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+    .creator-random-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(255, 154, 158, 0.4);
+        background: linear-gradient(135deg, #fecfef, #ff9a9e);
+    }
+
+.creator-save-btn {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+    .creator-save-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
+        background: linear-gradient(135deg, #ff1493, #c71585);
+    }
+
+.creator-share-btn {
+    background: linear-gradient(135deg, #1DA1F2, #0d8bd9);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+    .creator-share-btn:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(29, 161, 242, 0.5);
+        background: linear-gradient(135deg, #0d8bd9, #0a6fb8);
+    }
+
+.creator-section {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 236, 210, 0.5));
+    padding: 1.1rem;
+    border-radius: 1.25rem;
+    border: 2px solid rgba(255, 182, 193, 0.3);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.1);
+}
+
+.creator-section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #ff1493;
+    margin-bottom: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.creator-options-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.creator-option-btn {
+    aspect-ratio: 1/1;
+    border-radius: 0.9rem;
+    border: 2px solid rgba(255, 182, 193, 0.3);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 245, 247, 0.8));
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(255, 105, 180, 0.1);
+}
+
+    .creator-option-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .creator-option-btn:hover {
+        border-color: #ff69b4;
+        transform: scale(1.08);
+        box-shadow: 0 6px 20px rgba(255, 105, 180, 0.25);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 236, 210, 0.9));
+    }
+
+    .creator-option-btn.active {
+        border-color: #ff1493;
+        border-width: 3px;
+        background: linear-gradient(135deg, #fff5f7, #ffe8ec);
+        box-shadow: 0 8px 25px rgba(255, 20, 147, 0.35), inset 0 0 20px rgba(255, 105, 180, 0.15);
+        transform: scale(1.05);
+    }
+
+/* Footer */
+.creator-footer {
+    text-align: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 236, 210, 0.8));
+    border-radius: 20px;
+    border: 3px solid rgba(255, 182, 193, 0.4);
+    box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
+    max-width: min(1400px, calc(100vw - 2.5rem));
+    width: 100%;
+    flex-shrink: 0;
+}
+
+    .creator-footer p {
+        margin: 0;
+        font-size: 1rem;
+        color: #ff1493;
+        font-weight: 700;
+        font-family: 'Indie Flower', cursive;
+        text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+        letter-spacing: 0.5px;
+    }
+
+/* === RESPONSIVE === */
+@media (max-width: 1200px) {
+    .creator-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .creator-preview-area {
+        width: 100%;
+        max-width: 800px;
+    }
+
+    .creator-controls-panel {
+        width: 100%;
+        max-width: 800px;
+        height: auto;
+        max-height: 500px;
+    }
+}
+
+@media (max-width: 768px) {
+    .character-creator-wrapper {
+        padding: 10px;
+    }
+
+    .creator-container {
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .creator-options-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .creator-main-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .creator-random-btn,
+    .creator-share-btn,
+    .creator-save-btn {
+        width: 100%;
+    }
+
+    .creator-name-input,
+    .creator-extra-text-input {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .creator-options-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .creator-section {
+        padding: 14px;
+    }
+
+    .creator-controls-panel {
+        max-height: 400px;
+    }
+}
+
+/* ===== ПРИВЕТСТВЕННОЕ ОКНО ===== */
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.welcome-card {
+    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+    border-radius: 1.75rem;
+    padding: 2.8rem;
+    max-width: min(600px, 90vw);
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(255, 105, 180, 0.5), 0 10px 30px rgba(255, 154, 158, 0.3);
+    animation: slideUp 0.5s ease-out;
+    border: 3px solid rgba(255, 255, 255, 0.6);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.welcome-card h2 {
+    font-size: 1.75rem;
+    color: #ff1493;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+.welcome-card p {
+    font-size: 1.1rem;
+    color: #8b0045;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.welcome-creators {
+    margin: 25px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 2px dashed #ff69b4;
+}
+
+    .welcome-creators p {
+        font-size: 1rem;
+        color: #c71585;
+        font-weight: 600;
+        margin: 0;
+    }
+
+.welcome-close-btn {
+    background: linear-gradient(135deg, #ff1493, #ff69b4);
+    color: white;
+    border: none;
+    padding: 0.9rem 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 20, 147, 0.4);
+    margin-top: 20px;
+}
+
+    .welcome-close-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+        background: linear-gradient(135deg, #ff69b4, #ff1493);
+    }
+
+    .welcome-close-btn:active {
+        transform: translateY(-1px);
+    }
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+    .welcome-card {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+
+        .welcome-card h2 {
+            font-size: 1.4rem;
+        }
+
+        .welcome-card p {
+            font-size: 1rem;
+        }
+
+    .welcome-close-btn {
+        font-size: 1.1rem;
+        padding: 0.75rem 1.9rem;
+    }
+}
