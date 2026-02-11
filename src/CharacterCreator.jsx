@@ -241,24 +241,8 @@ const CharacterCreator = () => {
         }
     };
 
-    const saveCharacter = async () => {
-        if (!previewRef.current) return;
-
-        try {
-            const canvas = await capturePreview();
-            if (!canvas) {
-                alert('Error creating image');
-                return;
-            }
-
-            const link = document.createElement('a');
-            link.download = `valentine_${name.replace(/[^a-z0-9]/gi, '_')}.png`;
-            link.href = canvas.toDataURL('image/png');
-            link.click();
-        } catch (error) {
-            console.error('Save error:', error);
-            alert('An error occurred while saving the image. Please try again.');
-        }
+    const handleSaveClick = () => {
+        alert('Saving is currently unavailable.');
     };
 
     const shareToTwitter = async () => {
@@ -284,8 +268,7 @@ const CharacterCreator = () => {
                 }, 1000);
             } catch (_err) {
                 // Fallback if clipboard didn't work
-                saveCharacter();
-                alert('📥 Image downloaded! Attach it to Twitter manually.');
+                alert('Clipboard access is unavailable. Please share manually.');
             }
         } catch (error) {
             console.error('Error creating image:', error);
@@ -362,7 +345,7 @@ const CharacterCreator = () => {
                 <div className="creator-controls-panel">
                     <div className="creator-main-actions">
                         <button className="creator-random-btn" onClick={randomize}>🎲 Random</button>
-                        <button className="creator-save-btn" onClick={saveCharacter}>💾 Save</button>
+                        <button className="creator-save-btn" onClick={handleSaveClick}>💾 Save</button>
                         <button className="creator-share-btn" onClick={shareToTwitter}>🐦 Share</button>
                     </div>
 
