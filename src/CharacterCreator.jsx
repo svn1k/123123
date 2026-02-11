@@ -284,7 +284,7 @@ const CharacterCreator = () => {
                     const twitterText = encodeURIComponent('💕 Happy Valentine\'s Day! 💕\n\nMade with Valentine Card Creator');
                     window.open(`https://twitter.com/intent/tweet?text=${twitterText}`, '_blank');
                 }, 1000);
-            } catch (err) {
+            } catch (_err) {
                 // Fallback if clipboard didn't work
                 saveCharacter();
                 alert('📥 Image downloaded! Attach it to Twitter manually.');
