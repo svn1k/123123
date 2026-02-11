@@ -146,7 +146,8 @@ const CharacterCreator = () => {
             const inputRect = originalInput.getBoundingClientRect();
 
             // Копируем текст и базовые стили
-            div.innerText = originalInput.value;
+            // Если поле пустое, оставляем placeholder, чтобы подписи вроде "To:" не пропадали на сохранённой картинке
+            div.innerText = originalInput.value || originalInput.placeholder || '';
             div.style.position = 'absolute';
             div.style.left = `${(inputRect.left - previewRect.left) * scaleFactor}px`;
             div.style.top = `${(inputRect.top - previewRect.top) * scaleFactor}px`;
@@ -158,11 +159,14 @@ const CharacterCreator = () => {
             div.style.fontFamily = computedStyle.fontFamily;
             div.style.fontWeight = computedStyle.fontWeight;
             div.style.fontStyle = computedStyle.fontStyle;
+            div.style.letterSpacing = computedStyle.letterSpacing;
             div.style.background = computedStyle.background;
             div.style.border = computedStyle.border;
             div.style.borderBottom = computedStyle.borderBottom;
             div.style.borderRadius = computedStyle.borderRadius;
             div.style.lineHeight = computedStyle.lineHeight;
+            div.style.textTransform = computedStyle.textTransform;
+            div.style.webkitTextFillColor = computedStyle.webkitTextFillColor;
             div.style.zIndex = computedStyle.zIndex;
             div.style.boxSizing = computedStyle.boxSizing;
             div.style.overflow = 'hidden';
